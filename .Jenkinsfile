@@ -1,10 +1,12 @@
 pipeline {
-    agent any  // Runs on the Jenkins container
+    agent any  // Executa em qualquer agente Jenkins disponível
 
     environment {
         GIT_CREDENTIALS_ID = 'gh-danillo'
         GIT_REPO_URL = 'https://github.com/danilloguimaraes/bell_vox'
         GIT_BRANCH = 'main'
+        IMAGE_NAME = 'bell_vox'
+        CONTAINER_NAME = 'bell_vox_app'
     }
 
     stages {
@@ -40,9 +42,34 @@ pipeline {
             }
         }
 
+        stage('Build da Imagem Docker') {
+            steps {
+                script {
+                    sh """
+                        docker build -t ${IMAGE_NAME}:latest .
+                    """
+                }
+            }
+        }
+
+        stage('Implantação do Container') {
+            steps {
+                script {
+                    sh """
+                        # Parar e remover container antigo, se existir
+                        docker stop ${CONTAINER_NAME} || true
+                        docker rm ${CONTAINER_NAME} || true
+
+                        # Iniciar novo container com Flask na porta padrão (5000)
+                        docker run -d --name ${CONTAINER_NAME} -p 5000:5000 ${IMAGE_NAME}:latest
+                    """
+                }
+            }
+        }
+
         stage('Finalização') {
             steps {
-                echo "✅ Pipeline finalizado com sucesso!"
+                echo "✅ Implantação concluída com sucesso!"
             }
         }
     }
