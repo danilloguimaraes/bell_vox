@@ -18,4 +18,4 @@ ENV PYTHONUNBUFFERED=1
 EXPOSE 5000
 
 # Comando para rodar a aplicação Flask
-CMD ["python", "app/main/main.py"]
+CMD ["python", "main/main.py"]
