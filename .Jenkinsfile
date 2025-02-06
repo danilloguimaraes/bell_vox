@@ -67,6 +67,26 @@ pipeline {
             }
         }
 
+        stage('Configuração do Proxy no nginx para o aplicativo bell_vox com arquivo de configuracao bell_vox.bell_vox.com.conf') {
+            steps {
+                script {
+                    sh """
+                        # Para o container do nginx
+                        docker stop nginx || true
+
+                        # Copiar arquivo de configuração do nginx
+                        cp bell_vox.conf /etc/nginx/sites-available/bell_vox.conf
+
+                        # Criar link simbólico para o arquivo de configuração
+                        ln -s /etc/nginx/sites-available/bell_vox.conf /etc/nginx/sites-enabled/bell_vox.conf
+
+                        # Reiniciar o container do nginx
+                        docker start nginx
+                    """
+                }
+            }
+        }
+
         stage('Finalização') {
             steps {
                 echo "✅ Implantação concluída com sucesso!"
