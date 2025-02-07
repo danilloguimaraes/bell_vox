@@ -67,7 +67,7 @@ pipeline {
             }
         }
 
-        stage('Configuração do Proxy no nginx para o aplicativo bell_vox com arquivo de configuracao bell_vox.bell_vox.com.conf') {
+        stage('Configuração do Proxy no nginx') {
             steps {
                 script {
                     sh """
