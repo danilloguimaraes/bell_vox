@@ -75,10 +75,7 @@ pipeline {
                         docker stop nginx || true
 
                         # Copiar arquivo de configuração do nginx
-                        cp bell_vox.conf /etc/nginx/sites-available/bell_vox.conf
-
-                        # Criar link simbólico para o arquivo de configuração
-                        ln -s /etc/nginx/sites-available/bell_vox.conf /etc/nginx/sites-enabled/bell_vox.conf
+                        cp resources/bell_vox.conf /etc/nginx/conf.d/bell_vox.conf
 
                         # Reiniciar o container do nginx
                         docker start nginx
