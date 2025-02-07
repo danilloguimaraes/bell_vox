@@ -6,7 +6,7 @@ pipeline {
         GIT_REPO_URL = 'https://github.com/danilloguimaraes/bell_vox'
         GIT_BRANCH = 'main'
         IMAGE_NAME = 'bell_vox'
-        CONTAINER_NAME = 'bell_vox_app'
+        CONTAINER_NAME = 'bellvox'
     }
 
     stages {
@@ -61,7 +61,7 @@ pipeline {
                         docker rm ${CONTAINER_NAME} || true
 
                         # Iniciar novo container com Flask na porta padrão (5000)
-                        docker run -d --name ${CONTAINER_NAME} -p 5000:5000 ${IMAGE_NAME}:latest
+                        docker run -d --name ${CONTAINER_NAME} --network proxy_net -p 5000:5000 ${IMAGE_NAME}:latest
                     """
                 }
             }
