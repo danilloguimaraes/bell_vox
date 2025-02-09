@@ -98,6 +98,22 @@ def healthcheck():
             "status": "ok"
         })
 
+@app.route("/", methods=["GET"])
+def home():
+    return """
+    <html>
+        <body>
+            <h1>Bell Vox</h1>
+            <p>API para transcrição de áudio</p>
+            <ul>
+            <li><a href="/transcricao-offline">Transcrição offline</a></li>
+            <li><a href="/transcricao-whisper">Transcrição com Whisper</a></li>
+            </ul>
+        </body>
+    </html>
+    """
+
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)
+

@@ -5,7 +5,7 @@ pipeline {
         GIT_CREDENTIALS_ID = 'gh-danillo'
         GIT_REPO_URL = 'https://github.com/danilloguimaraes/bell_vox'
         GIT_BRANCH = 'main'
-        IMAGE_NAME = 'bell_vox'
+        IMAGE_NAME = 'bellvox'
         CONTAINER_NAME = 'bellvox'
     }
 
